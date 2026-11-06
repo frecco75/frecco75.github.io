@@ -85,7 +85,11 @@ li{margin-bottom:6px}
 .figures strong{display:block;font-family:"Space Grotesk",sans-serif;font-size:30px;color:var(--ink)}
 
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-.skill{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.skill{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--line);border-radius:6px;padding:18px 20px;transition:border-color .2s,transform .2s,box-shadow .2s}
+.skill h3{transition:color .2s}
+.skill:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 20px rgba(20,33,61,.12)}
+.skill:hover h3{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.skill,.skill h3{transition:none}.skill:hover{transform:none}}
 .skill h3{font-size:18px;margin-bottom:8px}
 .skill p{font-size:16px;color:var(--muted);margin:0}
 
