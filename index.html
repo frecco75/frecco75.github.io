@@ -65,6 +65,9 @@ nav a:hover{text-decoration:underline}
 .lang-switch button[aria-pressed="true"]{background:var(--accent);color:#fff}
 .lang-switch button:not([aria-pressed="true"]):hover{background:rgba(246,195,178,.12)}
 .kicker{font-family:"JetBrains Mono",monospace;font-size:15px;color:var(--accent-soft);margin:0 0 12px}
+.hero-meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;margin-bottom:12px}
+.hero-meta .kicker{margin:0}
+.badge{font:600 13px/1 "JetBrains Mono",monospace;letter-spacing:.04em;color:#fff;background:rgba(228,87,46,.18);border:1px solid var(--accent);padding:6px 12px;border-radius:999px;white-space:nowrap;margin-left:auto}
 .hero h1{font-size:clamp(44px,9vw,84px);font-weight:700;letter-spacing:-.02em}
 .honorific{display:block;font-size:clamp(16px,2.6vw,20px);letter-spacing:.18em;color:var(--accent);margin-bottom:6px}
 .hero .rule{width:96px;height:4px;background:var(--accent);margin:24px 0}
@@ -126,7 +129,10 @@ footer a{color:var(--accent-soft)}
         <button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button>
       </div>
     </div>
-    <p class="kicker">// Senior Software Engineer · Lead Developer · Coach Craft</p>
+    <div class="hero-meta">
+      <p class="kicker">// Senior Software Engineer · Lead Developer · Coach Craft</p>
+      <span class="badge">Freelance · Paris / remote</span>
+    </div>
     <h1><span class="honorific">EUR ING</span>Fabien Recco</h1>
     <div class="rule"></div>
     <p data-i18n="hero.intro">Ingénieur logiciel backend spécialiste de l'écosystème JVM (Kotlin, Java, Spring). Depuis 15 ans, je conçois et fais évoluer des plateformes e-commerce à fort trafic, et j'aide les équipes à écrire un code plus simple, plus sûr et mieux testé, en m'appuyant sur l'IA dans ma façon de développer.</p>
