@@ -5,6 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EUR ING Fabien Recco, Senior Software Engineer</title>
 <meta name="description" content="EUR ING Fabien Recco : ingénieur logiciel senior JVM (Kotlin, Java, Spring), lead developer et coach craft. 15 ans d'expérience sur des plateformes e-commerce à fort trafic.">
+<script>
+// Choix de la langue avant le rendu pour éviter un flash : ?lang= > choix mémorisé > langue du navigateur.
+(function(){
+  var lang;
+  try{ lang=new URLSearchParams(location.search).get('lang'); }catch(e){}
+  if(lang!=='fr'&&lang!=='en'){ try{ lang=localStorage.getItem('lang'); }catch(e){} }
+  if(lang!=='fr'&&lang!=='en'){
+    var prefs=navigator.languages||[navigator.language||'fr'];
+    lang='en';
+    for(var i=0;i<prefs.length;i++){
+      var p=String(prefs[i]).toLowerCase();
+      if(p.indexOf('fr')===0){lang='fr';break;}
+      if(p.indexOf('en')===0){lang='en';break;}
+    }
+  }
+  document.documentElement.lang=lang;
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -33,14 +51,19 @@ html{scroll-behavior:smooth}
 body{margin:0;font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.6;color:var(--text);background:var(--paper)}
 h1,h2,h3{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.15;margin:0}
 a{color:var(--accent)}
-a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .wrap{max-width:880px;margin:0 auto;padding:0 24px}
 @media (max-width:480px){.wrap{padding:0 16px}}
 
 header.hero{background:#14213D;color:#fff;padding:28px 0 72px}
-nav{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:16px;margin-bottom:72px}
+.topbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin-bottom:72px}
+nav{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:16px}
 nav a{color:var(--accent-soft);text-decoration:none}
 nav a:hover{text-decoration:underline}
+.lang-switch{display:inline-flex;border:1px solid rgba(246,195,178,.5);border-radius:4px;overflow:hidden}
+.lang-switch button{font:600 13px/1 "JetBrains Mono",monospace;letter-spacing:.06em;padding:7px 10px;background:transparent;color:var(--accent-soft);border:0;cursor:pointer}
+.lang-switch button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.lang-switch button:not([aria-pressed="true"]):hover{background:rgba(246,195,178,.12)}
 .kicker{font-family:"JetBrains Mono",monospace;font-size:15px;color:var(--accent-soft);margin:0 0 12px}
 .hero h1{font-size:clamp(44px,9vw,84px);font-weight:700;letter-spacing:-.02em}
 .honorific{display:block;font-size:clamp(16px,2.6vw,20px);letter-spacing:.18em;color:var(--accent);margin-bottom:6px}
@@ -86,69 +109,76 @@ footer a{color:var(--accent-soft)}
 
 <header class="hero">
   <div class="wrap">
-    <nav aria-label="Navigation principale">
-      <a href="#apropos">À propos</a>
-      <a href="#expertises">Expertises</a>
-      <a href="#experience">Expérience</a>
-      <a href="#formation">Formation</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="topbar">
+      <nav data-i18n-attr="aria-label:nav.label" aria-label="Navigation principale">
+        <a href="#apropos" data-i18n="nav.about">À propos</a>
+        <a href="#expertises" data-i18n="nav.skills">Expertises</a>
+        <a href="#experience" data-i18n="nav.experience">Expérience</a>
+        <a href="#formation" data-i18n="nav.education">Formation</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="lang-switch" role="group" data-i18n-attr="aria-label:lang.label" aria-label="Langue">
+        <button type="button" data-lang="fr" lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
     <p class="kicker">// Senior Software Engineer · Lead Developer · Coach Craft</p>
     <h1><span class="honorific">EUR ING</span>Fabien Recco</h1>
     <div class="rule"></div>
-    <p>Ingénieur logiciel backend spécialiste de l'écosystème JVM (Kotlin, Java, Spring). Depuis 15 ans, je conçois et fais évoluer des plateformes e-commerce à fort trafic, et j'aide les équipes à écrire un code plus simple, plus sûr et mieux testé, en m'appuyant sur l'IA dans ma façon de développer.</p>
-    <a class="cta" href="#contact">Me contacter</a>
+    <p data-i18n="hero.intro">Ingénieur logiciel backend spécialiste de l'écosystème JVM (Kotlin, Java, Spring). Depuis 15 ans, je conçois et fais évoluer des plateformes e-commerce à fort trafic, et j'aide les équipes à écrire un code plus simple, plus sûr et mieux testé, en m'appuyant sur l'IA dans ma façon de développer.</p>
+    <a class="cta" href="#contact" data-i18n="hero.cta">Me contacter</a>
   </div>
 </header>
 
 <main>
 <section id="apropos">
   <div class="wrap">
-    <h2>À propos</h2>
-    <p>J'ai commencé sur les tunnels de paiement de Rakuten France, puis j'ai construit des sites de voyage pour Promovacances et ses partenaires. Chez Publicis Sapient, j'ai pris le rôle de tech lead sur la refonte du Drive Intermarché, avant de rejoindre le programme de transformation digitale des Galeries Lafayette.</p>
-    <p>Freelance depuis 2020, j'interviens comme lead developer, architecte ou coach craft : socles techniques partagés, architecture hexagonale, programmation fonctionnelle, contract first. Je travaille aujourd'hui chez BlaBlaCar, sur le backend du covoiturage.</p>
-    <p>L'IA fait désormais partie de mon métier : j'utilise des assistants de code IA au quotidien, avec les mêmes exigences que pour le reste du code (tests, revue, architecture lisible).</p>
-    <p>Ce qui me motive : transmettre. Tech talks, pair et mob programming, revues de code et accompagnement de profils juniors font partie de toutes mes missions.</p>
+    <h2 data-i18n="nav.about">À propos</h2>
+    <p data-i18n="about.p1">J'ai commencé sur les tunnels de paiement de Rakuten France, puis j'ai construit des sites de voyage pour Promovacances et ses partenaires. Chez Publicis Sapient, j'ai pris le rôle de tech lead sur la refonte du Drive Intermarché, avant de rejoindre le programme de transformation digitale des Galeries Lafayette.</p>
+    <p data-i18n="about.p2">Freelance depuis 2020, j'interviens comme lead developer, architecte ou coach craft : socles techniques partagés, architecture hexagonale, programmation fonctionnelle, contract first. Je travaille aujourd'hui chez BlaBlaCar, sur le backend du covoiturage.</p>
+    <p data-i18n="about.p3">L'IA fait désormais partie de mon métier : j'utilise des assistants de code IA au quotidien, avec les mêmes exigences que pour le reste du code (tests, revue, architecture lisible).</p>
+    <p data-i18n="about.p3b">En parallèle, je construis une plateforme tech pilotée par l'IA, organisée comme une DSI dont 24 agents IA spécialisés tiennent les rôles (product owner, staff engineer, QA, SRE, sécurité, DPO…) et dont je suis le directeur. Chaque évolution y est spécifiée avant d'être codée, puis revue et vérifiée en CI. La plateforme repose sur un socle JVM (Kotlin, Spring Boot 4), un design system React et une gestion des identités sous Keycloak. Son premier produit : la mise en relation par IA entre freelances IT et missions.</p>
+    <p data-i18n="about.p4">Ce qui me motive : transmettre. Tech talks, pair et mob programming, revues de code et accompagnement de profils juniors font partie de toutes mes missions.</p>
     <ul class="figures">
-      <li><strong>15 ans</strong>de développement backend</li>
-      <li><strong>30+ dépôts</strong>outillés par un socle commun Kotlin/Java</li>
-      <li><strong>~20 microservices</strong>sous ma responsabilité chez Intermarché</li>
-      <li><strong>10 M</strong>de visiteurs uniques par mois chez Rakuten</li>
+      <li data-i18n="fig.1"><strong>15 ans</strong>de développement backend</li>
+      <li data-i18n="fig.2"><strong>30+ dépôts</strong>outillés par un socle commun Kotlin/Java</li>
+      <li data-i18n="fig.3"><strong>~20 microservices</strong>sous ma responsabilité chez Intermarché</li>
+      <li data-i18n="fig.4"><strong>10 M</strong>de visiteurs uniques par mois chez Rakuten</li>
     </ul>
   </div>
 </section>
 
 <section id="expertises">
   <div class="wrap">
-    <h2>Expertises</h2>
+    <h2 data-i18n="nav.skills">Expertises</h2>
     <div class="skills">
       <div class="skill">
         <h3>Backend JVM</h3>
-        <p>Kotlin, Java 21, Spring Boot, Spring Batch et Integration, Hibernate, Arrow, Vavr.</p>
+        <p data-i18n="sk.jvm">Kotlin, Java 21, Spring Boot, Spring Batch et Integration, Hibernate, Arrow, Vavr.</p>
       </div>
       <div class="skill">
         <h3>Architecture</h3>
-        <p>Microservices, event-driven, hexagonale, contract first et schema first, socles modulaires en monorepo.</p>
+        <p data-i18n="sk.archi">Microservices, event-driven, hexagonale, contract first et schema first, socles modulaires en monorepo.</p>
       </div>
       <div class="skill">
         <h3>Software craftsmanship</h3>
-        <p>Pyramide de tests, TDD/ATDD, mutation testing, Railway Oriented Programming, null safety.</p>
+        <p data-i18n="sk.craft">Pyramide de tests, TDD/ATDD, mutation testing, Railway Oriented Programming, null safety.</p>
       </div>
       <div class="skill">
-        <h3>IA appliquée</h3>
-        <p>Développement assisté par IA et agents de code, au service de la qualité et de la productivité des équipes.</p>
+        <h3 data-i18n="sk.ai.t">IA appliquée</h3>
+        <p data-i18n="sk.ai">Plateforme personnelle opérée par 24 agents IA, de la spécification à l'exploitation ; développement assisté par IA et agents de code.</p>
       </div>
       <div class="skill">
-        <h3>Cloud et données</h3>
+        <h3 data-i18n="sk.cloud.t">Cloud et données</h3>
         <p>GCP, Kubernetes, Docker, Kafka, Pub/Sub, PostgreSQL, Redis, OpenTelemetry.</p>
       </div>
       <div class="skill">
-        <h3>Identité (IAM / CIAM)</h3>
-        <p>Keycloak : montées de version, providers sur mesure, OIDC, Spring Security.</p>
+        <h3 data-i18n="sk.iam.t">Identité (IAM / CIAM)</h3>
+        <p data-i18n="sk.iam">Keycloak : montées de version, providers sur mesure, OIDC, Spring Security.</p>
       </div>
       <div class="skill">
-        <h3>Leadership technique</h3>
-        <p>Cadrage, choix techniques, onboarding, coaching, tech talks et veille.</p>
+        <h3 data-i18n="sk.lead.t">Leadership technique</h3>
+        <p data-i18n="sk.lead">Cadrage, choix techniques, onboarding, coaching, tech talks et veille.</p>
       </div>
     </div>
   </div>
@@ -156,89 +186,89 @@ footer a{color:var(--accent-soft)}
 
 <section id="experience">
   <div class="wrap">
-    <h2>Expérience</h2>
+    <h2 data-i18n="nav.experience">Expérience</h2>
 
     <div class="item">
-      <div class="head"><h3>Senior Software Engineer</h3><span class="date">nov. 2025 – aujourd'hui</span></div>
-      <p class="meta"><span class="org">BlaBlaCar</span> · Freelance · à distance</p>
-      <p>Développement backend du covoiturage, d'abord sur l'offre de trajets (carpool supply), puis dans la squad Search, avant de revenir sur l'offre.</p>
+      <div class="head"><h3>Senior Software Engineer</h3><span class="date" data-i18n="d.bbc">nov. 2025 – aujourd'hui</span></div>
+      <p class="meta" data-i18n="m.bbc"><span class="org">BlaBlaCar</span> · Freelance · à distance</p>
+      <p data-i18n="x.bbc">Développement backend du covoiturage, d'abord sur l'offre de trajets (carpool supply), puis dans la squad Search, avant de revenir sur l'offre.</p>
     </div>
 
     <div class="item">
-      <div class="head"><h3>Coach Craft</h3><span class="date">sept. – nov. 2025</span></div>
+      <div class="head"><h3>Coach Craft</h3><span class="date" data-i18n="d.bnp">sept. – nov. 2025</span></div>
       <p class="meta"><span class="org">BNP Paribas</span> · CIB Securities Services · Freelance</p>
-      <p>Accompagnement des équipes de développement sur les pratiques craft.</p>
+      <p data-i18n="x.bnp">Accompagnement des équipes de développement sur les pratiques craft.</p>
     </div>
 
     <div class="item">
-      <div class="head"><h3>Lead Developer / Staff Engineer</h3><span class="date">août 2022 – juin 2025</span></div>
+      <div class="head"><h3>Lead Developer / Staff Engineer</h3><span class="date" data-i18n="d.gl2">août 2022 – juin 2025</span></div>
       <p class="meta"><span class="org">Galeries Lafayette</span> · Freelance</p>
       <ul>
-        <li>Conception d'un socle technique Kotlin/Java en monorepo (librairies, linters, plugins, générateurs de code), adopté par plus de 30 dépôts.</li>
-        <li>Migration vers Java 21, Kotlin 2 et Spring Boot 3 ; null safety avec JSpecify et NullAway.</li>
-        <li>Refonte du e-merchandising : intégration d'Attraqt puis de Grid Dynamics, agrégation des flux stock, produit et analytics.</li>
-        <li>CIAM : montée de version de Keycloak et développement de providers.</li>
-        <li>POC sur le temps de démarrage (AOT, CDS, native image) et l'observabilité (OpenTelemetry).</li>
+        <li data-i18n="x.gl2.1">Conception d'un socle technique Kotlin/Java en monorepo (librairies, linters, plugins, générateurs de code), adopté par plus de 30 dépôts.</li>
+        <li data-i18n="x.gl2.2">Migration vers Java 21, Kotlin 2 et Spring Boot 3 ; null safety avec JSpecify et NullAway.</li>
+        <li data-i18n="x.gl2.3">Refonte du e-merchandising : intégration d'Attraqt puis de Grid Dynamics, agrégation des flux stock, produit et analytics.</li>
+        <li data-i18n="x.gl2.4">CIAM : montée de version de Keycloak et développement de providers.</li>
+        <li data-i18n="x.gl2.5">POC sur le temps de démarrage (AOT, CDS, native image) et l'observabilité (OpenTelemetry).</li>
       </ul>
       <ul class="tags"><li>Kotlin</li><li>Java 21</li><li>Spring Boot 3</li><li>Kafka</li><li>GCP</li><li>Keycloak</li></ul>
     </div>
 
     <div class="item">
-      <div class="head"><h3>Technical Leader / Software Architect</h3><span class="date">nov. 2021 – juil. 2022</span></div>
-      <p class="meta"><span class="org">ARMIS.TECH</span> · Freelance · à distance</p>
-      <p>Refonte technique d'un produit SaaS : définition de la nouvelle architecture microservices et de la stack Spring Boot / Kotlin, IAM avec Keycloak, API GraphQL (Netflix DGS) et REST, refonte des pipelines CI/CD. Tech lead de l'équipe backend et coach des profils juniors.</p>
+      <div class="head"><h3>Technical Leader / Software Architect</h3><span class="date" data-i18n="d.armis">nov. 2021 – juil. 2022</span></div>
+      <p class="meta" data-i18n="m.armis"><span class="org">ARMIS.TECH</span> · Freelance · à distance</p>
+      <p data-i18n="x.armis">Refonte technique d'un produit SaaS : définition de la nouvelle architecture microservices et de la stack Spring Boot / Kotlin, IAM avec Keycloak, API GraphQL (Netflix DGS) et REST, refonte des pipelines CI/CD. Tech lead de l'équipe backend et coach des profils juniors.</p>
       <ul class="tags"><li>Kotlin</li><li>GraphQL</li><li>Keycloak</li><li>AWS / GCP</li><li>Arrow</li></ul>
     </div>
 
     <div class="item">
-      <div class="head"><h3>Senior Software Crafter</h3><span class="date">avr. 2019 – oct. 2021</span></div>
-      <p class="meta"><span class="org">Galeries Lafayette</span> · via Publicis Sapient, puis en freelance</p>
-      <p>Refonte du SI e-commerce (programme de plus de 100 personnes) : microservices panier, commande, paiement, livraison et contenus. J'ai introduit la stack Kotlin, la pyramide de tests backend (unitaires, mutation, intégration, API) et un générateur de microservices, et animé des ateliers sur la programmation fonctionnelle.</p>
+      <div class="head"><h3>Senior Software Crafter</h3><span class="date" data-i18n="d.gl1">avr. 2019 – oct. 2021</span></div>
+      <p class="meta" data-i18n="m.gl1"><span class="org">Galeries Lafayette</span> · via Publicis Sapient, puis en freelance</p>
+      <p data-i18n="x.gl1">Refonte du SI e-commerce (programme de plus de 100 personnes) : microservices panier, commande, paiement, livraison et contenus. J'ai introduit la stack Kotlin, la pyramide de tests backend (unitaires, mutation, intégration, API) et un générateur de microservices, et animé des ateliers sur la programmation fonctionnelle.</p>
       <ul class="tags"><li>Kotlin</li><li>Spring</li><li>GraphQL BFF</li><li>Vue</li><li>Kafka</li><li>GKE</li></ul>
     </div>
 
     <div class="item">
-      <div class="head"><h3>Technical Leader</h3><span class="date">août 2017 – mars 2019</span></div>
-      <p class="meta"><span class="org">Intermarché</span> · via Publicis Sapient (CDI)</p>
-      <p>Refonte du Drive Intermarché (applications mobiles, site web, picking en magasin, back-office ; programme de plus de 120 personnes). Tech lead de l'équipe Services et référent de ~20 microservices déployés sur GCP. J'ai encadré 4 développeurs seniors et pris en charge le cadrage, les revues de code, les mises en production et la réversibilité.</p>
+      <div class="head"><h3>Technical Leader</h3><span class="date" data-i18n="d.itm">août 2017 – mars 2019</span></div>
+      <p class="meta" data-i18n="m.itm"><span class="org">Intermarché</span> · via Publicis Sapient (CDI)</p>
+      <p data-i18n="x.itm">Refonte du Drive Intermarché (applications mobiles, site web, picking en magasin, back-office ; programme de plus de 120 personnes). Tech lead de l'équipe Services et référent de ~20 microservices déployés sur GCP. J'ai encadré 4 développeurs seniors et pris en charge le cadrage, les revues de code, les mises en production et la réversibilité.</p>
       <ul class="tags"><li>Java 8</li><li>Vavr</li><li>Spring Cloud</li><li>GKE</li><li>CQRS / ES</li></ul>
     </div>
 
     <div class="item">
-      <div class="head"><h3>Senior Software Engineer</h3><span class="date">juin 2014 – juil. 2017</span></div>
-      <p class="meta"><span class="org">Karavel – Promovacances</span> · CDI</p>
-      <p>Développement des sites B2C du groupe (Promovacances, Fram, PartirPasCher) et des marques blanches partenaires (Opodo, GO Voyages, eDreams). En charge du release management, de l'intégration continue et du tutorat technique.</p>
+      <div class="head"><h3>Senior Software Engineer</h3><span class="date" data-i18n="d.krv">juin 2014 – juil. 2017</span></div>
+      <p class="meta" data-i18n="m.krv"><span class="org">Karavel – Promovacances</span> · CDI</p>
+      <p data-i18n="x.krv">Développement des sites B2C du groupe (Promovacances, Fram, PartirPasCher) et des marques blanches partenaires (Opodo, GO Voyages, eDreams). En charge du release management, de l'intégration continue et du tutorat technique.</p>
       <ul class="tags"><li>Java EE</li><li>Spring MVC</li><li>Elasticsearch</li><li>Apache Camel</li></ul>
     </div>
 
     <div class="item">
-      <div class="head"><h3>Software Engineer</h3><span class="date">févr. 2011 – mai 2014</span></div>
-      <p class="meta"><span class="org">Rakuten France</span> · stage de fin d'études puis CDI</p>
-      <p>Feature team Buyers d'une marketplace de plus de 10 millions de visiteurs mensuels : optimisation du passage en caisse (A/B tests, paiement en un clic), intégration des prestataires de paiement et 3-D Secure, lutte contre la fraude et lancement de l'activité B2B2C.</p>
+      <div class="head"><h3>Software Engineer</h3><span class="date" data-i18n="d.rkt">févr. 2011 – mai 2014</span></div>
+      <p class="meta" data-i18n="m.rkt"><span class="org">Rakuten France</span> · stage de fin d'études puis CDI</p>
+      <p data-i18n="x.rkt">Feature team Buyers d'une marketplace de plus de 10 millions de visiteurs mensuels : optimisation du passage en caisse (A/B tests, paiement en un clic), intégration des prestataires de paiement et 3-D Secure, lutte contre la fraude et lancement de l'activité B2B2C.</p>
       <ul class="tags"><li>Java EE</li><li>Spring</li><li>Hibernate</li><li>Oracle</li></ul>
     </div>
 
     <details>
-      <summary>Avant 2011</summary>
-      <p style="margin-top:12px"><strong>Wonderbox</strong>, stage de développeur web (2010) : outil de gestion des disponibilités des partenaires (PHP, Zend Framework).</p>
+      <summary data-i18n="x.before.t">Avant 2011</summary>
+      <p style="margin-top:12px" data-i18n="x.before"><strong>Wonderbox</strong>, stage de développeur web (2010) : outil de gestion des disponibilités des partenaires (PHP, Zend Framework).</p>
     </details>
   </div>
 </section>
 
 <section id="formation">
   <div class="wrap">
-    <h2>Formation</h2>
+    <h2 data-i18n="nav.education">Formation</h2>
     <div class="item">
-      <div class="head"><h3>Titre EUR ING, ingénieur européen</h3><span class="date">2017</span></div>
-      <p class="meta">Délivré par Engineers Europe (ex-FEANI)</p>
+      <div class="head"><h3 data-i18n="e.eur.t">Titre EUR ING, ingénieur européen</h3><span class="date">2017</span></div>
+      <p class="meta" data-i18n="e.eur">Délivré par Engineers Europe (ex-FEANI)</p>
     </div>
     <div class="item">
-      <div class="head"><h3>ENSIIE, diplôme d'ingénieur</h3><span class="date">2008 – 2011</span></div>
-      <p class="meta">Informatique et mathématiques · Bac+5</p>
+      <div class="head"><h3 data-i18n="e.ensiie.t">ENSIIE, diplôme d'ingénieur</h3><span class="date">2008 – 2011</span></div>
+      <p class="meta" data-i18n="e.ensiie">Informatique et mathématiques · Bac+5</p>
     </div>
     <div class="item">
       <div class="head"><h3>Université Paris-Saclay, CUPGE (DEUG PMPC)</h3><span class="date">2006 – 2008</span></div>
-      <p class="meta">Cycle universitaire préparatoire aux grandes écoles · major du concours national DEUG 2008 (groupe CCP)</p>
+      <p class="meta" data-i18n="e.ups">Cycle universitaire préparatoire aux grandes écoles · major du concours national DEUG 2008 (groupe CCP)</p>
     </div>
   </div>
 </section>
@@ -246,11 +276,118 @@ footer a{color:var(--accent-soft)}
 
 <footer id="contact">
   <div class="wrap">
-    <h2>Contact</h2>
-    <p>Pour une mission, un échange technique ou une intervention sur les pratiques craft :</p>
+    <h2 data-i18n="nav.contact">Contact</h2>
+    <p data-i18n="contact.p">Pour une mission, un échange technique ou une intervention sur les pratiques craft :</p>
     <p><a href="https://www.linkedin.com/in/fabien-recco/">LinkedIn</a> · <a href="https://github.com/frecco75">GitHub</a></p>
   </div>
 </footer>
 
+<script>
+(function(){
+  var EN={
+    'meta.title':'EUR ING Fabien Recco, Senior Software Engineer',
+    'meta.desc':"EUR ING Fabien Recco: senior JVM software engineer (Kotlin, Java, Spring), lead developer and craft coach. 15 years of experience on high-traffic e-commerce platforms.",
+    'nav.label':'Main navigation',
+    'lang.label':'Language',
+    'nav.about':'About',
+    'nav.skills':'Expertise',
+    'nav.experience':'Experience',
+    'nav.education':'Education',
+    'nav.contact':'Contact',
+    'hero.intro':"Backend software engineer specialising in the JVM ecosystem (Kotlin, Java, Spring). For 15 years I have been designing and evolving high-traffic e-commerce platforms, and helping teams write simpler, safer, better-tested code, with AI as part of the way I build software.",
+    'hero.cta':'Get in touch',
+    'about.p1':"I started out on the checkout flows of Rakuten France, then built travel websites for Promovacances and its partners. At Publicis Sapient I became tech lead on the rebuild of Intermarché's Drive service, before joining the Galeries Lafayette digital transformation programme.",
+    'about.p2':"Freelance since 2020, I work as a lead developer, architect or craft coach: shared technical foundations, hexagonal architecture, functional programming, contract first. I currently work at BlaBlaCar, on the carpooling backend.",
+    'about.p3':"AI is now part of my job: I use AI coding assistants every day, holding them to the same standards as the rest of the code (tests, review, readable architecture).",
+    'about.p3b':"Alongside this, I am building an AI-driven tech platform, organised like an IT department whose roles (product owner, staff engineer, QA, SRE, security, DPO…) are held by 24 specialised AI agents, with me as its director. Every change is specified before it is coded, then reviewed and checked in CI. The platform is built on a JVM foundation (Kotlin, Spring Boot 4), a React design system and Keycloak-based identity management. Its first product: AI matching between IT freelancers and assignments.",
+    'about.p4':"What drives me is sharing knowledge. Tech talks, pair and mob programming, code reviews and mentoring junior developers are part of every assignment.",
+    'fig.1':'<strong>15 years</strong>of backend development',
+    'fig.2':'<strong>30+ repositories</strong>built on a shared Kotlin/Java foundation',
+    'fig.3':'<strong>~20 microservices</strong>under my responsibility at Intermarché',
+    'fig.4':'<strong>10 M</strong>unique visitors per month at Rakuten',
+    'sk.jvm':'Kotlin, Java 21, Spring Boot, Spring Batch and Integration, Hibernate, Arrow, Vavr.',
+    'sk.archi':'Microservices, event-driven, hexagonal, contract first and schema first, modular monorepo foundations.',
+    'sk.craft':'Test pyramid, TDD/ATDD, mutation testing, Railway Oriented Programming, null safety.',
+    'sk.ai.t':'Applied AI',
+    'sk.ai':'Personal platform run by 24 AI agents, from specification to operations; AI-assisted development and coding agents.',
+    'sk.cloud.t':'Cloud and data',
+    'sk.iam.t':'Identity (IAM / CIAM)',
+    'sk.iam':'Keycloak: version upgrades, custom providers, OIDC, Spring Security.',
+    'sk.lead.t':'Technical leadership',
+    'sk.lead':'Scoping, technical choices, onboarding, coaching, tech talks and tech watch.',
+    'd.bbc':'Nov 2025 – present',
+    'm.bbc':'<span class="org">BlaBlaCar</span> · Freelance · remote',
+    'x.bbc':'Backend development for carpooling, first on ride supply (carpool supply), then in the Search squad, before returning to supply.',
+    'd.bnp':'Sep – Nov 2025',
+    'x.bnp':'Coaching development teams on software craftsmanship practices.',
+    'd.gl2':'Aug 2022 – Jun 2025',
+    'x.gl2.1':'Designed a Kotlin/Java technical foundation as a monorepo (libraries, linters, plugins, code generators), adopted by more than 30 repositories.',
+    'x.gl2.2':'Migration to Java 21, Kotlin 2 and Spring Boot 3; null safety with JSpecify and NullAway.',
+    'x.gl2.3':'E-merchandising overhaul: integration of Attraqt then Grid Dynamics, aggregating stock, product and analytics data feeds.',
+    'x.gl2.4':'CIAM: Keycloak upgrade and custom provider development.',
+    'x.gl2.5':'POCs on startup time (AOT, CDS, native image) and observability (OpenTelemetry).',
+    'd.armis':'Nov 2021 – Jul 2022',
+    'm.armis':'<span class="org">ARMIS.TECH</span> · Freelance · remote',
+    'x.armis':'Technical reboot of a SaaS product: defined the new microservices architecture and the Spring Boot / Kotlin stack, IAM with Keycloak, GraphQL (Netflix DGS) and REST APIs, rebuilt the CI/CD pipelines. Backend tech lead and coach for junior developers.',
+    'd.gl1':'Apr 2019 – Oct 2021',
+    'm.gl1':'<span class="org">Galeries Lafayette</span> · via Publicis Sapient, then freelance',
+    'x.gl1':'Rebuild of the e-commerce platform (a programme of 100+ people): cart, order, payment, delivery and content microservices. I introduced the Kotlin stack, the backend test pyramid (unit, mutation, integration, API) and a microservice generator, and ran workshops on functional programming.',
+    'd.itm':'Aug 2017 – Mar 2019',
+    'm.itm':'<span class="org">Intermarché</span> · via Publicis Sapient (permanent)',
+    'x.itm':'Rebuild of Intermarché Drive (mobile apps, website, in-store picking, back office; a programme of 120+ people). Tech lead of the Services team and owner of ~20 microservices deployed on GCP. I managed 4 senior developers and handled scoping, code reviews, production releases and handover.',
+    'd.krv':'Jun 2014 – Jul 2017',
+    'm.krv':'<span class="org">Karavel – Promovacances</span> · permanent',
+    'x.krv':"Developed the group's B2C websites (Promovacances, Fram, PartirPasCher) and white-label sites for partners (Opodo, GO Voyages, eDreams). In charge of release management, continuous integration and technical mentoring.",
+    'd.rkt':'Feb 2011 – May 2014',
+    'm.rkt':'<span class="org">Rakuten France</span> · final-year internship, then permanent',
+    'x.rkt':'Buyers feature team of a marketplace with 10M+ monthly visitors: checkout optimisation (A/B tests, one-click payment), payment provider and 3-D Secure integration, fraud reduction and launch of the B2B2C business.',
+    'x.before.t':'Before 2011',
+    'x.before':'<strong>Wonderbox</strong>, web developer internship (2010): partner availability management tool (PHP, Zend Framework).',
+    'e.eur.t':'EUR ING title, European Engineer',
+    'e.eur':'Awarded by Engineers Europe (formerly FEANI)',
+    'e.ensiie.t':"ENSIIE, Master's degree in engineering",
+    'e.ensiie':'Computer science and mathematics',
+    'e.ups':'University preparatory programme for the French grandes écoles · ranked first in the 2008 national DEUG entrance exam (CCP group)',
+    'contact.p':'For a freelance assignment, a technical discussion or a talk on software craftsmanship:'
+  };
+
+  var nodes=document.querySelectorAll('[data-i18n]');
+  var attrNodes=document.querySelectorAll('[data-i18n-attr]');
+  var FR={'meta.title':document.title,'meta.desc':document.querySelector('meta[name="description"]').content};
+  nodes.forEach(function(n){FR[n.getAttribute('data-i18n')]=n.innerHTML;});
+  attrNodes.forEach(function(n){
+    var parts=n.getAttribute('data-i18n-attr').split(':');
+    FR[parts[1]]=n.getAttribute(parts[0]);
+  });
+
+  function apply(lang){
+    var dict=lang==='en'?EN:FR;
+    nodes.forEach(function(n){
+      var k=n.getAttribute('data-i18n');
+      if(dict[k]!=null) n.innerHTML=dict[k];
+    });
+    attrNodes.forEach(function(n){
+      var parts=n.getAttribute('data-i18n-attr').split(':');
+      if(dict[parts[1]]!=null) n.setAttribute(parts[0],dict[parts[1]]);
+    });
+    document.title=dict['meta.title'];
+    document.querySelector('meta[name="description"]').content=dict['meta.desc'];
+    document.documentElement.lang=lang;
+    document.querySelectorAll('.lang-switch button').forEach(function(b){
+      b.setAttribute('aria-pressed',String(b.getAttribute('data-lang')===lang));
+    });
+  }
+
+  document.querySelectorAll('.lang-switch button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var lang=b.getAttribute('data-lang');
+      try{localStorage.setItem('lang',lang);}catch(e){}
+      apply(lang);
+    });
+  });
+
+  apply(document.documentElement.lang==='en'?'en':'fr');
+})();
+</script>
 </body>
 </html>
