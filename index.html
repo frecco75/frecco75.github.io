@@ -87,7 +87,9 @@ li{margin-bottom:6px}
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
 .skill{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--line);border-radius:6px;padding:18px 20px;transition:border-color .2s}
 .skill:hover{border-color:var(--accent)}
-@media (prefers-reduced-motion:reduce){.skill{transition:none}}
+.skill h3{transition:color .2s}
+.skill:hover h3{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.skill,.skill h3{transition:none}}
 .skill h3{font-size:18px;margin-bottom:8px}
 .skill p{font-size:16px;color:var(--muted);margin:0}
 
