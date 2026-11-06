@@ -106,6 +106,12 @@ li{margin-bottom:6px}
 details{margin-top:8px}
 summary{cursor:pointer;color:var(--muted);font-size:16px}
 
+.quotes{display:grid;gap:28px}
+.quote{margin:0;border-left:3px solid var(--accent);padding:4px 0 4px 20px;max-width:40em}
+.quote p{font-size:19px;margin:0 0 8px}
+.quote footer{background:none;padding:0;color:var(--muted);font-size:15px}
+.quote footer strong{color:var(--text)}
+
 footer{background:var(--ink-deep);color:#D5DBE7;padding:48px 0;font-size:17px}
 footer h2{color:#fff}
 footer a{color:var(--accent-soft)}
@@ -268,6 +274,26 @@ footer a{color:var(--accent-soft)}
   </div>
 </section>
 
+<section id="recommandations">
+  <div class="wrap">
+    <h2 data-i18n="reco.t">Recommandations</h2>
+    <div class="quotes">
+      <blockquote class="quote">
+        <p data-i18n="reco.1">«&nbsp;Fabien est rapidement devenu un référent technique transverse essentiel au sein des équipes e-commerce des Galeries.&nbsp;»</p>
+        <footer><strong>Guillaume Trohel</strong> · Engineering Manager, Galeries Lafayette</footer>
+      </blockquote>
+      <blockquote class="quote">
+        <p data-i18n="reco.2">«&nbsp;Fabien a montré un niveau d'expertise dans le développement backend (Java, Kotlin, Spring, conception…) que j'avais rarement constaté.&nbsp;»</p>
+        <footer><strong>Thomas Rayez</strong> · Head of Technology, Razorfish (Publicis)</footer>
+      </blockquote>
+      <blockquote class="quote">
+        <p data-i18n="reco.3">«&nbsp;Il a […] réussi à élever le niveau de qualité du code chez de nombreux développeurs.&nbsp;»</p>
+        <footer><strong>Laurent Cauchoix</strong> · <span data-i18n="reco.3.role">Ingénieur études et développement</span>, Galeries Lafayette</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
 <section id="formation">
   <div class="wrap">
     <h2 data-i18n="nav.education">Formation</h2>
@@ -362,6 +388,11 @@ footer a{color:var(--accent-soft)}
     'e.ensiie.t':"ENSIIE, Master's degree in engineering",
     'e.ensiie':'Computer science and mathematics',
     'e.ups':'University preparatory programme for the French grandes écoles · ranked first in the 2008 national DEUG entrance exam (Concours Communs Polytechniques)',
+    'reco.t':'Recommendations',
+    'reco.1':'“Fabien quickly became an essential cross-team technical reference within the Galeries Lafayette e-commerce teams.”',
+    'reco.2':'“Fabien showed a level of expertise in backend development (Java, Kotlin, Spring, design…) that I had rarely seen.”',
+    'reco.3':'“He […] managed to raise the quality of code written by many developers.”',
+    'reco.3.role':'Software engineer',
     'contact.p':'A mission, a chat or a talk on craft and AI?'
   };
 
